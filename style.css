@@ -1,0 +1,38 @@
+body {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.field-group {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+input[type="text"] {
+	width: 500px;
+	font-size: 32px;
+	padding: 25px;
+	margin-bottom: 30px;
+}
+
+input[type="number"] {
+	width: 500px;
+	font-size: 32px;
+	padding: 25px;
+	margin-bottom: 30px;
+}
+
+input[type="button"] {
+	width: 300px;
+	padding: 25px;
+	border-radius: 20px;
+	font-size: 24px;
+}
+
+input[type="number"].hidden {
+	display: none;
+}

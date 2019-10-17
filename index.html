@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Masking Test</title>
+		<link rel="stylesheet" href="./style.css">
+		<script src="./main.js"></script>
+	</head>
+	<body>
+		<div>
+			<h1>Masking Test</h1>
+		</div>
+		<div class="field-group">
+			<!-- The date fields -->
+			<input type="text" id="date-visual" placeholder="XX/XX/XXXX" name="date-visual" data-type="date" data-mask="XX/XX/XXXX" data-previous pattern="[0-9]">
+			<input type="number" id="date-value" class="hidden" name="date-value" data-type="date">
+			
+			<!-- The card fields -->
+			<input type="text" id="card-visual" placeholder="XXXX XXXX XXXX XXXX" name="card-visual" data-type="card" data-mask="XXXX_XXXX_XXXX_XXXX" data-previous pattern="[0-9]">
+			<input type="number" id="card-value" class="hidden" name="card-value" data-type="card">
+			
+			<!-- Submit button? -->
+			<input type="button" value="Let's go!" id="submit">
+		</div>
+	</body>
+</html>
