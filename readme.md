@@ -1,7 +1,7 @@
 # Mask
 
-## Problems
+## Input masking
 
-Validation of what the mask should actually do. It depends on the key that's pressed, how many digits are currently there, etc. Thinking of corner cases could be a useful excercise to increase the functionality.
+The function is simple, on the keypress, it determines what the key is and whether it should be allowed or rejected. If it's allowed, it counts the number of characters in the string and if the last interaction was not a 'special' character being deleted and the current value is an appropriate length, it will add the 'special' character.
 
-When deleting a non digit, if a digit is immediately entered a special character will not be entered. 
+I used two inputs, one for visuals and the other for the actual value, but this is not completely necessary. As we're interacting with actual keypresses, we can determine exactly what keys should have an effect. The reason I went with two for each value is that the 'front facing' input is just a text input whereas the 'background' input is a number input, only allowing numbers.

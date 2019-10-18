@@ -8,14 +8,25 @@ const domReady = function () {
 
 	function validate(e) {
 		const maxLength = e.target.dataset.mask.length - 1;
-		if (e.code.includes('Key')) {
+
+		if (e.key.charCodeAt() === 66) {
+			return;
+		}
+		if (e.key.charCodeAt() > 57 && e.key.charCodeAt() !== 127) {
 			e.preventDefault();
 			return false;
 		}
+
+		if (e.key.charCodeAt() > 31 && e.key.charCodeAt() < 48) {
+			e.preventDefault();
+			return false;
+		}
+
 		if (e.target.value.length > maxLength && e.code.includes("Digit")) {
 			e.preventDefault();
 			return false;
 		}
+		
 	}
 
 	/**
@@ -23,7 +34,6 @@ const domReady = function () {
 	 * This function is called on input's looking to mask the date with the form XX/XX/XXXX
 	 * 
 	 * @param {Event} e - The event taking place
-	 * @param {Node} target - The hidden field
 	*/
 	function dateMask(e) {
 		if (e.target.value.length === 2 || e.target.value.length === 5) {
@@ -41,7 +51,7 @@ const domReady = function () {
 	function standardMask(e, target, char) {
 		const previous = e.target.dataset.previous;
 
-		if (previous || previous[previous.length - 1] !== char) {
+		if (previous && previous[previous.length - 1] != char) {
 			if (e.target.dataset.type === "date") {
 				dateMask(e);
 			} else if (e.target.dataset.type === "card") {
