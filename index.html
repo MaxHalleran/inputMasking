@@ -11,12 +11,10 @@
 		</div>
 		<div class="field-group">
 			<!-- The date fields -->
-			<input type="text" id="date-visual" placeholder="XX/XX/XXXX" name="date-visual" data-type="date" data-mask="XX/XX/XXXX" data-previous pattern="[0-9]">
-			<input type="number" id="date-value" class="hidden" name="date-value" data-type="date">
+			<input type="text" id="date" placeholder="XX/XX/XXXX" name="date-visual" data-type="date" data-mask="XX/XX/XXXX" autocomplete="cc-number" data-previous>
 			
 			<!-- The card fields -->
-			<input type="text" id="card-visual" placeholder="XXXX XXXX XXXX XXXX" name="card-visual" data-type="card" data-mask="XXXX_XXXX_XXXX_XXXX" data-previous pattern="[0-9]">
-			<input type="number" id="card-value" class="hidden" name="card-value" data-type="card">
+			<input type="text" id="card" placeholder="XXXX XXXX XXXX XXXX" name="card-visual" data-type="card" data-mask="XXXX_XXXX_XXXX_XXXX" data-previous>
 			
 			<!-- Submit button? -->
 			<input type="button" value="Let's go!" id="submit">
