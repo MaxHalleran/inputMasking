@@ -1,0 +1,25 @@
+{
+  "name": "mask",
+  "version": "1.0.0",
+  "description": "##",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MaxHalleran/inputMasking.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MaxHalleran/inputMasking/issues"
+  },
+  "homepage": "https://github.com/MaxHalleran/inputMasking#readme",
+  "devDependencies": {
+    "@babel/core": "^7.6.4",
+    "@babel/preset-env": "^7.6.3",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0"
+  }
+}
