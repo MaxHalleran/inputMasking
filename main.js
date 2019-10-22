@@ -35,35 +35,15 @@ const domReady = function () {
 			e.target.value += specialChar ? this.char : '';
 		}
 
-		validatePlacement = (e) => {
-			let specialCharPosition = false;
-			this.positions.forEach((position) => {
-				if (e.target.value.length === position) {
-					specialCharPosition = position;
-				}
-			})
-			return specialCharPosition;
-		}
-
-		// This controls the input event
 		updateValue = (e) => {
 			const previous = e.target.dataset.previous;
-
 			// We want to make sure the updated value wont be longer than the allowed amount
 			if (e.target.value.length > this.length) {
 				e.target.value = e.target.value.slice(0, this.length - 1);
 			}
-			// Let's deal with the 'erase special character than right problem
-			const validPosition = this.validatePlacement(e);
-			console.log(e);
-			if (validPosition && e.inputType !== "deleteContentBackward") {
-				e.target.value += this.char;
-			}
-
 			if (previous && previous[previous.length - 1] != this.char) {
 				this.mask(e);
 			}
-
 			e.target.dataset.previous = e.target.value;
 		}
 
@@ -82,8 +62,8 @@ const domReady = function () {
 	// Logging the submit button
 	const button = document.getElementById('submit');
 	function logSubmit(e) {
-		console.log("Date Value: ", dateVisual.value);
-		console.log("Card Value: ", cardVisual.value.replace(/[/\s]/g, ""));
+		console.log("Date Value: ", date.value);
+		console.log("Card Value: ", card.value.replace(/[/\s]/g, ""));
 	}
 	button.addEventListener('click', logSubmit);
 };
