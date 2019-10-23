@@ -5,10 +5,11 @@ const domReady = function () {
 			this.char = char;
 			this.length = length;
 			this.positions = positions;
+
+			this.initiate();
 		}
 
 		validateKeyInput = (e) => {
-			console.log(e);
 			// Allow arrow, backspace, shift and tab keys
 			if (e.key.charCodeAt() === 65 || e.key.charCodeAt() === 66 || e.key.charCodeAt() === 83 || e.key.charCodeAt() === 84) {
 				return;
@@ -68,15 +69,17 @@ const domReady = function () {
 		}
 
 		initiate() {
-			document.getElementById(this.elementId).addEventListener('input', this.updateValue);
-			document.getElementById(this.elementId).addEventListener('keydown', this.validateKeyInput);
-			document.getElementById(this.elementId).dataset.previous = "";
+			if (document.getElementById(this.elementId)) {
+				document.getElementById(this.elementId).addEventListener('input', this.updateValue);
+				document.getElementById(this.elementId).addEventListener('keydown', this.validateKeyInput);
+				document.getElementById(this.elementId).dataset.previous = "";
+			}
 		}
 	}
 
 	const dateMask = new Mask('text-2019101045289', '/', 10, [2, 5]);
-
-	dateMask.initiate();
+	const creditCardMask = new Mask('credit-card-number', ' ', 19, [4, 9, 14]);
+	const creditCardExpiryDate = new Mask('credit-card-expiry', '/', 5, [2]);
 };
 
 if (document.readyState === "complete" || (document.readyState !== "loading" && !document.documentElement.doScroll)) {
