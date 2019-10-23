@@ -3,7 +3,7 @@ const babel = require('gulp-babel');
 const uglify = require('gulp-uglify');
 
 gulp.task('js', () =>
-	gulp.src('date.js')
+	gulp.src('main.js')
 		.pipe(babel({
 			presets: ['@babel/env']
 		}))
