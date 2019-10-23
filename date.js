@@ -8,12 +8,13 @@ const domReady = function () {
 		}
 
 		validateKeyInput = (e) => {
+			console.log(e);
 			// Allow arrow, backspace, shift and tab keys
 			if (e.key.charCodeAt() === 65 || e.key.charCodeAt() === 66 || e.key.charCodeAt() === 83 || e.key.charCodeAt() === 84) {
 				return;
 			}
 			// Allow crtl + x, ctrl + c and ctrl + v
-			if (e.metaKey && (e.key === 'x' || e.key === 'c' || e.key === 'v')) {
+			if ((e.metaKey || e.ctrlKey) && (e.key === 'x' || e.key === 'c' || e.key === 'v')) {
 				return;
 			}
 			if (e.key.charCodeAt() > 57 && e.key.charCodeAt() !== 127) {
@@ -30,27 +31,17 @@ const domReady = function () {
 			}
 		}
 
-		singleMask = (e) => {
-			let specialChar = false;
-			this.positions.forEach(position => {
-				if (e.target.value.length === position) {
-					specialChar = true;
-				}
-			});
-			e.target.value += specialChar ? this.char : '';
-		}
-
 		formatMask = (e) => {
 			let formattedValiue = '';
 			const inputValue = e.target.value.split('');
 
 			inputValue.forEach((character, index) => {
 				for (let i = 0; i < this.positions.length; i++) {
-					if (index === this.positions[i]) {
+					if (formattedValiue.length === this.positions[i]) {
 						formattedValiue += this.char;
 					}
 				}
-				if (character.search(/[^\d]/) < 0) {
+				if (character.search(/[\d]/) > -1) {
 					formattedValiue += character;
 				}
 			})
@@ -68,10 +59,10 @@ const domReady = function () {
 			}
 
 			// Determine if the input had multiple values or if the input has been completely filled out otherwise run the single mask
-			if (e.target.value.length - e.target.dataset.previous.length > 1 || e.target.value.length === this.length) {
+			if (e.target.value.length - e.target.dataset.previous.length > 1 || e.target.value.length === (this.length - this.positions.length) || e.target.value.length === this.length) {
 				e.target.value = this.formatMask(e);
 			} else if (previous && previous[previous.length - 1] != this.char) {
-				this.singleMask(e);
+				e.target.value = this.formatMask(e);
 			}
 			e.target.dataset.previous = e.target.value;
 		}
