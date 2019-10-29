@@ -1,34 +1,37 @@
 const domReady = function () {
 	class Mask {
-		constructor(elementId, char, length, positions) {
+		constructor(elementId, char, length, positions, expiryField = false) {
 			this.elementId = elementId;
 			this.char = char;
 			this.length = length;
 			this.positions = positions;
+			this.expiryField = expiryField;
 
 			this.initiate();
 		}
 
 		validateKeyInput = (e) => {
-			// Allow arrow, backspace, shift and tab keys
-			if (e.key.charCodeAt() === 65 || e.key.charCodeAt() === 66 || e.key.charCodeAt() === 83 || e.key.charCodeAt() === 84) {
-				return;
-			}
-			// Allow crtl + x, ctrl + c and ctrl + v
-			if ((e.metaKey || e.ctrlKey) && (e.key === 'x' || e.key === 'c' || e.key === 'v')) {
-				return;
-			}
-			if (e.key.charCodeAt() > 57 && e.key.charCodeAt() !== 127) {
-				e.preventDefault();
-				return false;
-			}
-			if (e.key.charCodeAt() > 31 && e.key.charCodeAt() < 48) {
-				e.preventDefault();
-				return false;
-			}
-			if (e.target.value.length > this.length - 1 && e.code.includes("Digit")) {
-				e.preventDefault();
-				return false;
+			if (e.key) {
+				// Allow arrow, backspace, shift and tab keys
+				if (e.key.charCodeAt() === 65 || e.key.charCodeAt() === 66 || e.key.charCodeAt() === 83 || e.key.charCodeAt() === 84) {
+					return;
+				}
+				// Allow crtl + x, ctrl + c and ctrl + v
+				if ((e.metaKey || e.ctrlKey) && (e.key === 'x' || e.key === 'c' || e.key === 'v')) {
+					return;
+				}
+				if (e.key.charCodeAt() > 57 && e.key.charCodeAt() !== 127) {
+					e.preventDefault();
+					return false;
+				}
+				if (e.key.charCodeAt() > 31 && e.key.charCodeAt() < 48) {
+					e.preventDefault();
+					return false;
+				}
+				if (e.target.value.length > this.length - 1 && e.code.includes("Digit")) {
+					e.preventDefault();
+					return false;
+				}
 			}
 		}
 
@@ -52,10 +55,30 @@ const domReady = function () {
 			return formattedValiue;
 		}
 
+		expiryValidate = (input) => {
+			let output = '';
+
+			if (input.search(/^\d\d\/\d\d\d\d$/) > -1) {
+				console.log('Matches');
+				output += input.substring(0, 3);
+				output += input.substring(input.length - 2);
+			} else {
+				output += input;
+			}
+
+			return output;
+		}
+
 		updateValue = (e) => {
 			const previous = e.target.dataset.previous;
+
+			// Expiry fields are sometimes handed the month and the year in full. We'll check and if this is true, trim it to 4 digits.
+			if (this.expiryField) {
+				e.target.value = this.expiryValidate(e.target.value);
+			}
+
 			// Check that the input isn't longer than the maximum length
-			if (e.target.value.length > this.length) {
+			if (e.target.value.length > this.length && this.expiryField !== true) {
 				e.target.value = e.target.value.slice(0, this.length - 1);
 			}
 
@@ -65,6 +88,7 @@ const domReady = function () {
 			} else if (previous && previous[previous.length - 1] != this.char) {
 				e.target.value = this.formatMask(e);
 			}
+
 			e.target.dataset.previous = e.target.value;
 		}
 
@@ -79,7 +103,7 @@ const domReady = function () {
 
 	const dateMask = new Mask('text-2019101045289', '/', 10, [2, 5]);
 	const creditCardMask = new Mask('credit-card-number', ' ', 19, [4, 9, 14]);
-	const creditCardExpiryDate = new Mask('credit-card-expiry', '/', 5, [2]);
+	const creditCardExpiryDate = new Mask('credit-card-expiry', '/', 5, [2], true);
 };
 
 if (document.readyState === "complete" || (document.readyState !== "loading" && !document.documentElement.doScroll)) {
