@@ -4,10 +4,10 @@ const uglify = require('gulp-uglify');
 
 gulp.task('js', () =>
 	gulp.src('kd-input-masking.js')
-		// .pipe(babel({
-		// 	presets: ['@babel/env']
-		// }))
-		// .pipe(uglify())
+		.pipe(babel({
+			presets: ['@babel/env']
+		}))
+		.pipe(uglify())
 		.pipe(gulp.dest('../willow-dev/assets'))
 );
 
